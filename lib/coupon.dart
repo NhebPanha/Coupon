@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class CouponScreen extends StatelessWidget {
   const CouponScreen({super.key});
@@ -73,7 +74,8 @@ class _CouponCardState extends State<CouponCard>
   late AnimationController _controller;
   late Animation<double> _animation;
   bool _isFront = true;
-
+  late double screenWidth = MediaQuery.of(context).size.width;
+  late double screenHeight = MediaQuery.of(context).size.height;
   @override
   void initState() {
     super.initState();
@@ -150,8 +152,8 @@ class _CouponCardState extends State<CouponCard>
                                       begin: Alignment.centerLeft,
                                       end: Alignment.centerRight,
                                       colors: [
-                                        AppColorsPath.couponRedShadow,
-                                        AppColorsPath.couponRed,
+                                        Color(0xFFB71C1C),
+                                        Color(0xFFD32F2F),
                                       ],
                                     ),
                                   ),
@@ -169,12 +171,12 @@ class _CouponCardState extends State<CouponCard>
                                             size: 80,
                                             eyeStyle: QrEyeStyle(
                                               eyeShape: QrEyeShape.square,
-                                              color: AppColorsPath.white,
+                                              color: Colors.white,
                                             ),
                                             dataModuleStyle: QrDataModuleStyle(
                                               dataModuleShape:
                                                   QrDataModuleShape.square,
-                                              color: AppColorsPath.white,
+                                              color: Colors.white,
                                             ),
                                           ),
 
@@ -194,11 +196,13 @@ class _CouponCardState extends State<CouponCard>
                                       /// The Text below
                                       Padding(
                                         padding: EdgeInsets.only(top: 5),
-                                        child: AppLabel(
-                                          text: "Code:12345678",
-                                          color: AppColorsPath.white,
-                                          fontSize: AppFontSize.value10,
-                                          fontWeight: FontWeight.w500,
+                                        child: Text(
+                                          "Code:12345678",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -211,10 +215,10 @@ class _CouponCardState extends State<CouponCard>
                                 child: PhysicalShape(
                                   elevation: 20,
                                   clipBehavior: Clip.antiAlias,
-                                  shadowColor: AppColorsPath.black.withValues(
+                                  shadowColor: Colors.black.withValues(
                                     alpha: 0.3,
                                   ),
-                                  color: AppColorsPath.white,
+                                  color: Colors.white,
                                   clipper: TicketClipperRight(),
                                   child: SizedBox(
                                     height: 120,
@@ -237,18 +241,22 @@ class _CouponCardState extends State<CouponCard>
                                             textBaseline:
                                                 TextBaseline.alphabetic,
                                             children: [
-                                              AppLabel(
-                                                text: "20%",
-                                                fontSize: AppFontSize.value32,
-                                                fontWeight: FontWeight.bold,
-                                                color: AppColorsPath.red,
+                                              Text(
+                                                "20%",
+                                                style: TextStyle(
+                                                  fontSize: 32,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.red,
+                                                ),
                                               ),
                                               SizedBox(width: 5),
-                                              AppLabel(
-                                                text: "OFF",
-                                                fontSize: AppFontSize.value13,
-                                                fontWeight: FontWeight.w500,
-                                                color: AppColorsPath.red,
+                                              Text(
+                                                "OFF",
+                                                style: TextStyle(
+                                                  fontSize: 13,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: Colors.red,
+                                                ),
                                                 textAlign: TextAlign.end,
                                               ),
                                             ],
@@ -321,7 +329,7 @@ class _CouponCardState extends State<CouponCard>
                                                 child: SizedBox(
                                                   height: 70,
                                                   width: 70,
-                                                  child: AppImages.networkImage(
+                                                  child: Image.network(
                                                     "https://www.pngall.com/wp-content/uploads/12/Delivery-Scooter-PNG-Cutout.png",
                                                     fit: BoxFit.contain,
                                                   ),
@@ -344,19 +352,17 @@ class _CouponCardState extends State<CouponCard>
                             child: PhysicalShape(
                               elevation: 20,
                               clipBehavior: Clip.antiAlias,
-                              shadowColor: AppColorsPath.black.withValues(
-                                alpha: 0.3,
-                              ),
+                              shadowColor: Colors.black.withValues(alpha: 0.3),
                               clipper: RoundedNotchClipper(),
-                              color: AppColorsPath.white,
+                              color: Colors.white,
                               child: Container(
                                 decoration: BoxDecoration(
                                   gradient: LinearGradient(
                                     begin: Alignment.centerLeft,
                                     end: Alignment.centerRight,
                                     colors: [
-                                      AppColorsPath.couponRed,
-                                      AppColorsPath.couponRedShadow,
+                                      Color(0xFFB71C1C),
+                                      Color(0xFFD32F2F),
                                     ],
                                   ),
                                 ),
@@ -365,11 +371,13 @@ class _CouponCardState extends State<CouponCard>
                                     0.25, // Adjust width as needed
                                 height: 30, // Adjust height as needed
                                 child: Center(
-                                  child: AppLabel(
-                                    text: "USE NOW",
-                                    fontSize: AppFontSize.value12,
-                                    color: AppColorsPath.white,
-                                    fontWeight: FontWeight.w500,
+                                  child: Text(
+                                    "USE NOW",
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -390,7 +398,7 @@ class _CouponCardState extends State<CouponCard>
                       decoration: BoxDecoration(
                         boxShadow: [
                           BoxShadow(
-                            color: AppColorsPath.black.withValues(alpha: 0.2),
+                            color: Colors.black.withValues(alpha: 0.2),
                             offset: Offset(0, 1),
                             blurRadius: 10.2,
                             spreadRadius: 0,
@@ -412,7 +420,7 @@ class _CouponCardState extends State<CouponCard>
                                         screenWidth *
                                         0.65, // Adjust width as needed
                                     decoration: BoxDecoration(
-                                      color: AppColorsPath.white,
+                                      color: Colors.white,
                                     ),
 
                                     /// Note: Use a slightly darker red to match your new image (e.g., 0xFFB71C1C)
@@ -455,10 +463,10 @@ class _CouponCardState extends State<CouponCard>
                                   child: PhysicalShape(
                                     elevation: 20,
                                     clipBehavior: Clip.antiAlias,
-                                    shadowColor: AppColorsPath.black.withValues(
+                                    shadowColor: Colors.black.withValues(
                                       alpha: 0.3,
                                     ),
-                                    color: AppColorsPath.transparent,
+                                    color: Colors.transparent,
                                     clipper: TicketClipperRight(),
                                     child: SizedBox(
                                       height: 120,
@@ -469,13 +477,13 @@ class _CouponCardState extends State<CouponCard>
                                             begin: Alignment.centerLeft,
                                             end: Alignment.centerRight,
                                             colors: [
-                                              AppColorsPath.couponRed,
-                                              AppColorsPath.couponRedShadow,
+                                              Color(0xFFB71C1C),
+                                              Color(0xFFD32F2F),
                                             ],
                                           ),
                                         ),
                                         child: Center(
-                                          child: AppImages.networkImage(
+                                          child: Image.network(
                                             "https://www.pngall.com/wp-content/uploads/12/Delivery-Scooter-PNG-Cutout.png",
                                             fit: BoxFit.contain,
                                           ),
@@ -503,20 +511,24 @@ class _CouponCardState extends State<CouponCard>
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 2),
-          child: AppLabel(
-            text: label,
-            fontSize: AppFontSize.value10,
-            fontWeight: FontWeight.w400,
-            color: AppColorsPath.black,
+          child: Text(
+            label,
+            style: TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.w400,
+              color: Colors.black,
+            ),
           ),
         ),
         Padding(
           padding: EdgeInsets.symmetric(vertical: 2),
-          child: AppLabel(
-            text: value,
-            fontSize: AppFontSize.value10,
-            fontWeight: FontWeight.w400,
-            color: AppColorsPath.black,
+          child: Text(
+            value,
+            style: TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.w400,
+              color: Colors.black,
+            ),
             overflow: TextOverflow.ellipsis,
           ),
         ),
