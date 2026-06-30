@@ -149,7 +149,7 @@
 //                                   height: 120,
 //                                   width:
 //                                       screenWidth *
-//                                       0.3, // Adjust width as needed
+//                                       0.12, // Adjust width as needed
 //                                   /// Note: Use a slightly darker red to match your new image (e.g., 0xFFB71C1C)
 //                                   decoration: BoxDecoration(
 //                                     gradient: LinearGradient(
@@ -162,53 +162,8 @@
 //                                     ),
 //                                   ),
 //                                   padding: EdgeInsets.all(10),
-//                                   child: Column(
-//                                     children: [
-//                                       Stack(
-//                                         alignment: Alignment.center,
-//                                         children: [
-//                                           /// The QR Code itself
-//                                           QrImageView(
-//                                             data:
-//                                                 "https://i.pinimg.com/736x/ba/14/4b/ba144bd17b47f9783d4754504a5d1c79.jpg",
-//                                             version: QrVersions.auto,
-//                                             size: 80,
-//                                             eyeStyle: QrEyeStyle(
-//                                               eyeShape: QrEyeShape.square,
-//                                               color: Colors.white,
-//                                             ),
-//                                             dataModuleStyle: QrDataModuleStyle(
-//                                               dataModuleShape:
-//                                                   QrDataModuleShape.square,
-//                                               color: Colors.white,
-//                                             ),
-//                                           ),
-
-//                                           /// The Custom Corner Brackets
-//                                           Positioned(
-//                                             left: 0,
-//                                             right: 0,
-//                                             top: 0,
-//                                             bottom: 0,
-//                                             child: CustomPaint(
-//                                               painter: CornerBracketPainter(),
-//                                             ),
-//                                           ),
-//                                         ],
-//                                       ),
-
-//                                       /// The Text below
-//                                       Padding(
-//                                         padding: EdgeInsets.only(top: 5),
-//                                         child: Text(
-//                                           "Code:12345678",
-//                                           style: TextStyle(
-//                                             color: Colors.white,
-//                                             fontSize: 12,
-//                                             fontWeight: FontWeight.w500,
-//                                           ),
-//                                         ),
-//                                       ),
+//                                   child: Column(children: [
+                                     
 //                                     ],
 //                                   ),
 //                                 ),
@@ -607,45 +562,75 @@
 // class LeftNotchClipper extends CustomClipper<Path> {
 //   @override
 //   Path getClip(Size size) {
+//     const double cornerRadius = 16.0;
+//     const int notchCount = 6; // Number of notches on the left edge
+
 //     Path path = Path();
 
-//     // The number of notches you want
-//     const int notchCount = 6;
-
-//     // We divide the height by notchCount to get the space for each 'section'
 //     double sectionHeight = size.height / notchCount;
+//     double notchRadius = sectionHeight * 0.35;
 
-//     // The radius of the cutout.
-//     // Adjust this to make the holes larger or smaller.
-//     double notchRadius = sectionHeight * 0.25;
+//     // Start from top-right after radius
+//     path.moveTo(size.width - cornerRadius, 0);
 
-//     // 1. Start at top right
-//     path.moveTo(size.width, 0);
+//     // Top-right corner
+//     path.arcToPoint(
+//       Offset(size.width, cornerRadius),
+//       radius: const Radius.circular(cornerRadius),
+//       clockwise: true,
+//     );
 
-//     // 2. Line to bottom right
-//     path.lineTo(size.width, size.height);
+//     // Right side
+//     path.lineTo(size.width, size.height - cornerRadius);
 
-//     // 3. Line to bottom left
-//     path.lineTo(0, size.height);
+//     // Bottom-right corner
+//     path.arcToPoint(
+//       Offset(size.width - cornerRadius, size.height),
+//       radius: const Radius.circular(cornerRadius),
+//       clockwise: true,
+//     );
 
-//     // 4. Draw the left edge with notches (moving from bottom to top)
+//     // Bottom edge
+//     path.lineTo(cornerRadius, size.height);
+
+//     // Bottom-left corner
+//     path.arcToPoint(
+//       Offset(0, size.height - cornerRadius),
+//       radius: const Radius.circular(cornerRadius),
+//       clockwise: true,
+//     );
+
+//     // Left side notches (bottom → top)
 //     for (int i = notchCount - 1; i >= 0; i--) {
-//       // Determine the vertical center of the current section
 //       double centerY = (i * sectionHeight) + (sectionHeight / 2);
 
-//       // Line to the bottom edge of the semicircle
+//       // Skip notch if it overlaps corner radius
+//       if (centerY + notchRadius > size.height - cornerRadius ||
+//           centerY - notchRadius < cornerRadius) {
+//         continue;
+//       }
+
 //       path.lineTo(0, centerY + notchRadius);
 
-//       // Draw the semicircular notch
-//       // clockwise: false pulls the arc "into" the shape
 //       path.arcToPoint(
 //         Offset(0, centerY - notchRadius),
 //         radius: Radius.circular(notchRadius),
 //         clockwise: false,
 //       );
 //     }
-//     // 5. Final line to the top left corner and close
-//     path.lineTo(0, 0);
+
+//     // Top-left corner
+//     path.lineTo(0, cornerRadius);
+
+//     path.arcToPoint(
+//       Offset(cornerRadius, 0),
+//       radius: const Radius.circular(cornerRadius),
+//       clockwise: true,
+//     );
+
+//     // Top edge back to start
+//     path.lineTo(size.width - cornerRadius, 0);
+
 //     path.close();
 
 //     return path;
@@ -662,9 +647,9 @@
 //     Path path = Path();
 
 //     /// Adjust these to change the look
-//     const double cornerCutSize = 10.0; // Size of the diagonal corners
-//     const int notchCount = 13; // Number of small notches
-//     const double notchRadius = 2; // Size of the small notches
+//     const double cornerCutSize = 0; // Size of the diagonal corners
+//     const int notchCount = 0; // Number of small notches
+//     const double notchRadius = 0; // Size of the small notches
 
 //     /// Start at Top Left
 //     path.moveTo(0, 0);
@@ -719,10 +704,10 @@
 //     Path path = Path();
 
 //     /// Configurations
-//     const double cornerCutSize = 10;
-//     const int leftNotchCount = 13;
-//     const double leftNotchRadius = 2;
-//     const int rightNotchCount = 6;
+//     const double cornerCutSize = 0;
+//     const int leftNotchCount = 0;
+//     const double leftNotchRadius = 0;
+//     const int rightNotchCount = 0;
 
 //     /// Start at top-left (after the diagonal cut)
 //     path.moveTo(cornerCutSize, 0);
