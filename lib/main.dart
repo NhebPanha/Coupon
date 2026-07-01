@@ -1,5 +1,6 @@
-import 'package:coupon/coupon.dart';
-import 'package:coupon/coupon_v2.dart';
+import 'package:coupon/coupon/coupon.dart';
+import 'package:coupon/coupon/coupon_v2.dart';
+import 'package:coupon/store/promotions_store_detail.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,7 +14,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: CouponScreen(),
+      // home: CouponScreen(),
+      home: PromotionsStoreDetail(),
     );
   }
 }

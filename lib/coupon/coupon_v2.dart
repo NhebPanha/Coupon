@@ -1,4 +1,5 @@
 import 'package:coupon/widget/app_colore_part.dart';
+import 'package:coupon/widget/app_label.dart';
 import 'package:flutter/material.dart';
 
 class CouponScreen extends StatelessWidget {
@@ -13,10 +14,10 @@ class CouponScreen extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           children: [
             // Front Card Showcase
-            const CouponCard(isFrontView: true),
-            const SizedBox(height: 16),
+            CouponCard(),
+            SizedBox(height: 16),
             // Back Card Showcase
-            const CouponCard(isFrontView: false),
+            // CouponCard(isFrontView: false),
           ],
         ),
       ),
@@ -25,10 +26,7 @@ class CouponScreen extends StatelessWidget {
 }
 
 class CouponCard extends StatefulWidget {
-  final bool isFrontView;
-
-  const CouponCard({super.key, required this.isFrontView});
-
+  const CouponCard({super.key});
   @override
   State<CouponCard> createState() => _CouponCardState();
 }
@@ -42,7 +40,6 @@ class _CouponCardState extends State<CouponCard>
   @override
   void initState() {
     super.initState();
-    _isFront = widget.isFrontView;
     _controller = AnimationController(
       duration: const Duration(milliseconds: 600),
       vsync: this,
@@ -77,7 +74,6 @@ class _CouponCardState extends State<CouponCard>
         builder: (context, child) {
           final double rotationValue = _animation.value * 3.141592653589793;
           final bool showFrontSide = rotationValue <= 3.141592653589793 / 2;
-
           return Transform(
             alignment: Alignment.center,
             transform: Matrix4.identity()
@@ -97,9 +93,8 @@ class _CouponCardState extends State<CouponCard>
   }
 
   Widget _buildFrontCard() {
-    return Container(
-      decoration: BoxDecoration(color: AppColorsPath.white),
-      height: 140,
+    return SizedBox(
+      height: 160,
       child: ClipPath(
         clipper: UniversalTicketClipper(notchOnLeft: true),
         child: Stack(
@@ -126,14 +121,12 @@ class _CouponCardState extends State<CouponCard>
                     child: Center(
                       child: RotatedBox(
                         quarterTurns: 3,
-                        child: Text(
-                          "FOOD COUPON",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 1.5,
-                          ),
+                        child: AppLabel(
+                          text: "FOOD COUPON",
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 1.5,
                         ),
                       ),
                     ),
@@ -155,52 +148,43 @@ class _CouponCardState extends State<CouponCard>
                               crossAxisAlignment: CrossAxisAlignment.baseline,
                               textBaseline: TextBaseline.alphabetic,
                               children: [
-                                Text(
-                                  "20%",
-                                  style: TextStyle(
-                                    fontSize: 38,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xFFD32F2F),
-                                  ),
+                                AppLabel(
+                                  text: "20%",
+                                  fontSize: 48,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColorsPath.red,
                                 ),
+
                                 SizedBox(width: 4),
-                                Text(
-                                  "OFF",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: const Color(
-                                      0xFFD32F2F,
-                                    ).withValues(alpha: 0.9),
-                                  ),
+                                AppLabel(
+                                  text: "OFF",
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColorsPath.red,
                                 ),
                               ],
                             ),
                             const SizedBox(height: 2),
-                            const Text(
-                              "Name Off Campaign",
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black87,
-                              ),
+                            const AppLabel(
+                              text: "Name Off Campaign",
+
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black87,
                             ),
                             const SizedBox(height: 4),
-                            const Text(
-                              "Valid Till : 31 FEB 2026",
-                              style: TextStyle(
-                                fontSize: 11,
-                                color: Colors.grey,
-                              ),
+                            const AppLabel(
+                              text: "Valid Till : 31 FEB 2026",
+                              fontSize: 11,
+                              color: Colors.grey,
                             ),
+
                             Row(
                               children: [
-                                const Text(
-                                  "Code : 1234556677",
-                                  style: TextStyle(
-                                    fontSize: 11,
-                                    color: Colors.grey,
-                                  ),
+                                const AppLabel(
+                                  text: "Code : 1234556677",
+                                  fontSize: 11,
+                                  color: Colors.grey,
                                 ),
                                 const SizedBox(width: 6),
                                 Icon(
@@ -236,15 +220,13 @@ class _CouponCardState extends State<CouponCard>
               child: ClipPath(
                 clipper: UseNowClipper(),
                 child: Container(
-                  color: Color(0xFFD32F2F),
+                  color: AppColorsPath.red,
                   padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-                  child: Text(
-                    "USE NOW",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 11,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  child: AppLabel(
+                    text: "USE NOW",
+                    color: Colors.white,
+                    fontSize: 11,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
@@ -256,9 +238,8 @@ class _CouponCardState extends State<CouponCard>
   }
 
   Widget _buildBackCard() {
-    return Container(
-      height: 140,
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(24)),
+    return SizedBox(
+      height: 160,
       child: ClipPath(
         clipper: UniversalTicketClipper(notchOnLeft: false),
         child: Container(
@@ -333,26 +314,23 @@ class _CouponCardState extends State<CouponCard>
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 1.5),
-          child: Text(
-            title,
-            style: const TextStyle(
-              fontSize: 9.5,
-              color: Colors.black54,
-              fontWeight: FontWeight.w500,
-            ),
+          child: AppLabel(
+            text: title,
+
+            fontSize: 9.5,
+            color: Colors.black54,
+            fontWeight: FontWeight.w500,
           ),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 1.5),
-          child: Text(
-            val,
+          child: AppLabel(
+            text: val,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
-              fontSize: 9.5,
-              color: Colors.black87,
-              fontWeight: FontWeight.bold,
-            ),
+            fontSize: 9.5,
+            color: Colors.black87,
+            fontWeight: FontWeight.bold,
           ),
         ),
       ],
