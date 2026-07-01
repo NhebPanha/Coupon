@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:coupon/buttom_sheet/product_buttom_sheet.dart';
 import 'package:coupon/model/store_model/store_model.dart';
 import 'package:coupon/widget/app_colore_part.dart';
 import 'package:coupon/widget/app_label.dart';
@@ -36,19 +37,31 @@ class _PromotionsStoreDetailState extends State<PromotionsStoreDetail> {
             pinned: true,
             backgroundColor: AppColorsPath.backgroundColor,
             elevation: 0,
-            leading: Container(
-              margin: EdgeInsets.all(8),
-              width: 40,
-              height: 40,
-              decoration: BoxDecoration(
-                color: AppColorsPath.white.withValues(alpha: 0.5),
-                borderRadius: BorderRadius.circular(50),
-              ),
-              child: Padding(
-                padding: EdgeInsets.only(left: 8.0),
-                child: Icon(
-                  Icons.arrow_back_ios,
-                  color: AppColorsPath.black.withValues(alpha: 0.8),
+            leading: InkWell(
+              onTap: () {
+                showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  backgroundColor: Colors.transparent,
+                  builder: (context) {
+                    return ProductMenuScreen();
+                  },
+                );
+              },
+              child: Container(
+                margin: EdgeInsets.all(8),
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: AppColorsPath.white.withValues(alpha: 0.5),
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.only(left: 8.0),
+                  child: Icon(
+                    Icons.arrow_back_ios,
+                    color: AppColorsPath.black.withValues(alpha: 0.8),
+                  ),
                 ),
               ),
             ),
@@ -154,7 +167,8 @@ class CardProductStoreWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 115,
+      width: 125,
+      height: 180,
       margin: EdgeInsets.only(right: 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -322,7 +336,7 @@ class CardStoreWidget extends StatelessWidget {
                     ),
                     const SizedBox(width: 10),
                     AppLabel(
-                      text: "\$${deliveryFee}",
+                      text: "\$$deliveryFee",
                       fontSize: 12,
                       color: Colors.grey,
                     ),
