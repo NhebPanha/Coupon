@@ -98,102 +98,13 @@ class _PromotionsStoreDetailState extends State<PromotionsStoreDetail> {
       child: Column(
         children: [
           /// ================= STORE HEADER =================
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Row(
-              children: [
-                Container(
-                  width: 52,
-                  height: 52,
-                  decoration: BoxDecoration(
-                    color: AppColorsPath.greyE0E0E0,
-                    borderRadius: BorderRadius.circular(26),
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppColorsPath.greyE0E0E0.withValues(alpha: 0.3),
-                        spreadRadius: 1,
-                        blurRadius: 5,
-                        offset: const Offset(0, 3),
-                      ),
-                    ],
-                    border: Border.all(
-                      color: AppColorsPath.greyE0E0E0,
-                      width: 1,
-                    ),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(26),
-                    child: Image.network(
-                      store.storeLogo,
-                      width: 52,
-                      height: 52,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                SizedBox(width: 12),
-
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      AppLabel(
-                        text: store.storeName,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      const SizedBox(height: 4),
-
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 3,
-                        ),
-                        decoration: BoxDecoration(
-                          color: AppColorsPath.red,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: AppLabel(
-                          text: store.promotionText,
-                          fontSize: 11,
-                          color: Colors.white,
-                        ),
-                      ),
-
-                      const SizedBox(height: 4),
-
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.star_border,
-                            size: 14,
-                            color: Colors.orange,
-                          ),
-                          const SizedBox(width: 4),
-                          AppLabel(
-                            text: store.rating.toString(),
-                            fontSize: 12,
-                            color: Colors.grey,
-                          ),
-                          const SizedBox(width: 10),
-                          AppLabel(
-                            text: "\$${store.deliveryFee}",
-                            fontSize: 12,
-                            color: Colors.grey,
-                          ),
-                          const SizedBox(width: 10),
-                          AppLabel(
-                            text: store.deliveryTime,
-                            fontSize: 12,
-                            color: Colors.grey,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+          CardStoreWidget(
+            image: store.storeLogo,
+            name: store.storeName,
+            promotionText: store.promotionText,
+            rating: store.rating,
+            deliveryFee: "${store.deliveryFee}",
+            deliveryTime: store.deliveryTime,
           ),
 
           const SizedBox(height: 12),
@@ -208,82 +119,222 @@ class _PromotionsStoreDetailState extends State<PromotionsStoreDetail> {
               itemBuilder: (context, index) {
                 final item = store.items[index];
 
-                return Container(
-                  width: 110,
-                  margin: const EdgeInsets.only(right: 8),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      /// IMAGE
-                      Stack(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: Image.network(
-                              item.image,
-                              height: 110,
-                              width: 110,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-
-                          Positioned(
-                            left: 4,
-                            bottom: 4,
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 6,
-                                vertical: 2,
-                              ),
-                              decoration: BoxDecoration(
-                                color: AppColorsPath.red,
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: AppLabel(
-                                text: item.discountText,
-                                color: Colors.white,
-                                fontSize: 9,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-
-                      const SizedBox(height: 6),
-
-                      /// NAME
-                      AppLabel(
-                        text: item.itemName,
-                        fontSize: 12,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-
-                      const SizedBox(height: 2),
-
-                      /// PRICE
-                      Row(
-                        children: [
-                          AppLabel(
-                            text: "\$${item.price}",
-                            fontWeight: FontWeight.bold,
-                            color: AppColorsPath.black,
-                            fontSize: 12,
-                          ),
-                          const SizedBox(width: 4),
-                          AppLabel(
-                            text: "\$${item.originalPrice}",
-                            fontSize: 10,
-                            color: AppColorsPath.red,
-                            decoration: TextDecoration.lineThrough,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                return CardProductStoreWidget(
+                  image: item.image,
+                  name: item.itemName,
+                  price: "${item.price}",
+                  originalPrice: "${item.originalPrice}",
+                  discountText: item.discountText,
                 );
               },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class CardProductStoreWidget extends StatelessWidget {
+  final String image;
+  final String name;
+  final String price;
+  final String originalPrice;
+  final String discountText;
+
+  const CardProductStoreWidget({
+    super.key,
+    required this.image,
+    required this.name,
+    required this.price,
+    required this.originalPrice,
+    required this.discountText,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 115,
+      margin: EdgeInsets.only(right: 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          /// IMAGE
+          Stack(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.network(
+                  image,
+                  height: 115,
+                  width: 115,
+                  fit: BoxFit.cover,
+                ),
+              ),
+
+              Positioned(
+                bottom: 8,
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                  decoration: BoxDecoration(
+                    color: AppColorsPath.red,
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(5),
+                      bottomRight: Radius.circular(5),
+                    ),
+                  ),
+                  child: AppLabel(
+                    text: discountText,
+                    color: Colors.white,
+                    fontSize: 10,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 6),
+
+          /// NAME
+          AppLabel(
+            text: name,
+            fontSize: 12,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+
+          const SizedBox(height: 2),
+
+          /// PRICE
+          Row(
+            children: [
+              AppLabel(
+                text: "\$$price",
+                fontWeight: FontWeight.bold,
+                color: AppColorsPath.black,
+                fontSize: 12,
+              ),
+              const SizedBox(width: 4),
+              AppLabel(
+                text: "\$$originalPrice",
+                fontSize: 10,
+                color: AppColorsPath.red,
+                textDecoration: TextDecoration.lineThrough,
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class CardStoreWidget extends StatelessWidget {
+  final String image;
+  final String name;
+  final String promotionText;
+  final double rating;
+  final String deliveryFee;
+  final String deliveryTime;
+
+  const CardStoreWidget({
+    super.key,
+    required this.image,
+    required this.name,
+    required this.promotionText,
+    required this.rating,
+    required this.deliveryFee,
+    required this.deliveryTime,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Row(
+        children: [
+          Container(
+            width: 52,
+            height: 52,
+            decoration: BoxDecoration(
+              color: AppColorsPath.greyE0E0E0,
+              borderRadius: BorderRadius.circular(26),
+              boxShadow: [
+                BoxShadow(
+                  color: AppColorsPath.greyE0E0E0.withValues(alpha: 0.3),
+                  spreadRadius: 1,
+                  blurRadius: 5,
+                  offset: const Offset(0, 3),
+                ),
+              ],
+              border: Border.all(color: AppColorsPath.greyE0E0E0, width: 1),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(26),
+              child: Image.network(
+                image,
+                width: 52,
+                height: 52,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          SizedBox(width: 12),
+
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AppLabel(text: name, fontSize: 16, fontWeight: FontWeight.bold),
+                const SizedBox(height: 4),
+
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 3,
+                  ),
+                  decoration: BoxDecoration(
+                    color: AppColorsPath.red,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: AppLabel(
+                    text: promotionText,
+                    fontSize: 11,
+                    color: Colors.white,
+                  ),
+                ),
+
+                const SizedBox(height: 4),
+
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.star_border,
+                      size: 14,
+                      color: Colors.orange,
+                    ),
+                    const SizedBox(width: 4),
+                    AppLabel(
+                      text: rating.toString(),
+                      fontSize: 12,
+                      color: Colors.grey,
+                    ),
+                    const SizedBox(width: 10),
+                    AppLabel(
+                      text: "\$${deliveryFee}",
+                      fontSize: 12,
+                      color: Colors.grey,
+                    ),
+                    const SizedBox(width: 10),
+                    AppLabel(
+                      text: deliveryTime,
+                      fontSize: 12,
+                      color: Colors.grey,
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
         ],

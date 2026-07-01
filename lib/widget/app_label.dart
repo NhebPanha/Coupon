@@ -14,7 +14,6 @@ class AppLabel extends StatelessWidget {
   final TextOverflow overflow;
   final int? maxLines;
   final double? letterSpacing;
-  final TextDecoration decoration;
 
   const AppLabel({
     super.key,
@@ -30,7 +29,6 @@ class AppLabel extends StatelessWidget {
     this.maxLines,
     this.fontFamily = "Poppins",
     this.letterSpacing = 0.0,
-    this.decoration = TextDecoration.none,
   });
 
   @override
