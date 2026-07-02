@@ -239,7 +239,7 @@ class _ProductMenuScreenState extends State<ProductMenuScreen> {
                   children: [
                     AnimatedContainer(
                       duration: Duration(milliseconds: 250),
-                      curve: Curves.easeOut,
+                      curve: Curves.easeInOut,
                       padding: EdgeInsets.all(12),
                       decoration: isSelected
                           ? BoxDecoration(
@@ -249,7 +249,7 @@ class _ProductMenuScreenState extends State<ProductMenuScreen> {
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(20),
                                 topRight: Radius.circular(20),
-                              ), 
+                              ),
                               boxShadow: [
                                 BoxShadow(
                                   color: AppColorsPath.black.withValues(
@@ -276,7 +276,7 @@ class _ProductMenuScreenState extends State<ProductMenuScreen> {
                         children: [
                           AnimatedContainer(
                             duration: Duration(milliseconds: 250),
-                            curve: Curves.easeIn,
+                            curve: Curves.easeInOut,
                             width: 55,
                             height: 55,
                             decoration: !isSelected
@@ -304,7 +304,7 @@ class _ProductMenuScreenState extends State<ProductMenuScreen> {
                               ),
                             ),
                           ),
-                          SizedBox(height: isSelected ? 12 : 5),
+                          SizedBox(height: 12),
                           AppLabel(
                             text: cat['name'],
                             fontSize: AppFontSize.value12,
@@ -319,6 +319,7 @@ class _ProductMenuScreenState extends State<ProductMenuScreen> {
                     SizedBox(height: 12),
                     AnimatedContainer(
                       duration: Duration(milliseconds: 250),
+                      curve: Curves.easeInOut,
                       width: 50,
                       height: 3,
                       decoration: BoxDecoration(

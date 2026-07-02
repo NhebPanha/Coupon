@@ -106,7 +106,7 @@ class _PromotionsStoreDetailState extends State<PromotionsStoreDetail> {
   Widget _buildStoreSection(PromotionStoreModel store) {
     return Container(
       margin: EdgeInsets.only(bottom: 12),
-      padding: EdgeInsets.symmetric(vertical: 12),
+      padding: EdgeInsets.only(top: 12, bottom: 12),
       color: AppColorsPath.backgroundColor,
       child: Column(
         children: [
@@ -142,7 +142,14 @@ class _PromotionsStoreDetailState extends State<PromotionsStoreDetail> {
               },
             ),
           ),
-          Divider(color: AppColorsPath.greyEDEDED, thickness: 1, height: 20),
+          Padding(
+            padding: EdgeInsets.only(left: 16),
+            child: Divider(
+              color: AppColorsPath.greyE0E0E0,
+              thickness: 1,
+              height: 20,
+            ),
+          ),
         ],
       ),
     );
@@ -168,12 +175,13 @@ class CardProductStoreWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 125,
       height: 180,
-      margin: EdgeInsets.only(right: 8),
+      // margin: EdgeInsets.only(right: 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           /// bloc image with discount text
           Stack(
@@ -285,7 +293,7 @@ class CardStoreWidget extends StatelessWidget {
                   color: AppColorsPath.greyE0E0E0.withValues(alpha: 0.3),
                   spreadRadius: 1,
                   blurRadius: 5,
-                  offset: const Offset(0, 3),
+                  offset: Offset(0, 3),
                 ),
               ],
               image: DecorationImage(
@@ -347,18 +355,36 @@ class CardStoreWidget extends StatelessWidget {
                 /// bloc for delivery fee and delivery time
                 Row(
                   children: [
-                    AppLabel(
-                      text: "\$$deliveryFee",
-                      fontSize: AppFontSize.value12,
-                      color: AppColorsPath.colorGrey.withValues(alpha: 0.6),
-                      fontWeight: FontWeight.w500,
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.delivery_dining,
+                          weight: 10,
+                          color: AppColorsPath.greyE0E0E0,
+                        ),
+                        AppLabel(
+                          text: "\$$deliveryFee",
+                          fontSize: AppFontSize.value12,
+                          color: AppColorsPath.colorGrey.withValues(alpha: 0.6),
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ],
                     ),
                     SizedBox(width: 10),
-                    AppLabel(
-                      text: deliveryTime,
-                      fontSize: AppFontSize.value12,
-                      color: AppColorsPath.colorGrey.withValues(alpha: 0.6),
-                      fontWeight: FontWeight.w500,
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.timer,
+                          weight: 10,
+                          color: AppColorsPath.greyE0E0E0,
+                        ),
+                        AppLabel(
+                          text: deliveryTime,
+                          fontSize: AppFontSize.value12,
+                          color: AppColorsPath.colorGrey.withValues(alpha: 0.6),
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ],
                     ),
                   ],
                 ),
