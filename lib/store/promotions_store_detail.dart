@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:coupon/buttom_sheet/product_buttom_sheet.dart';
 import 'package:coupon/model/store_model/store_model.dart';
 import 'package:coupon/widget/app_colore_part.dart';
+import 'package:coupon/widget/app_font_size.dart';
 import 'package:coupon/widget/app_label.dart';
 import 'package:flutter/material.dart';
 
@@ -22,16 +23,14 @@ class _PromotionsStoreDetailState extends State<PromotionsStoreDetail> {
 
     // 👉 replace with API later
     promotionsStoreDetailModel = promotionData;
-    log("PromotionsStoreDetailModel: ${promotionsStoreDetailModel.toJson()}");
   }
 
   @override
   Widget build(BuildContext context) {
-    log("PromotionsStoreDetailModel: ${promotionsStoreDetailModel.toJson()}");
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          /// ================= APP BAR =================
+          /// bloc for app bar with banner image
           SliverAppBar(
             expandedHeight: 250,
             pinned: true,
@@ -53,14 +52,14 @@ class _PromotionsStoreDetailState extends State<PromotionsStoreDetail> {
                 width: 40,
                 height: 40,
                 decoration: BoxDecoration(
-                  color: AppColorsPath.white.withValues(alpha: 0.5),
+                  color: AppColorsPath.black.withValues(alpha: 0.5),
                   borderRadius: BorderRadius.circular(50),
                 ),
                 child: Padding(
                   padding: EdgeInsets.only(left: 8.0),
                   child: Icon(
                     Icons.arrow_back_ios,
-                    color: AppColorsPath.black.withValues(alpha: 0.8),
+                    color: AppColorsPath.white.withValues(alpha: 0.8),
                   ),
                 ),
               ),
@@ -72,6 +71,7 @@ class _PromotionsStoreDetailState extends State<PromotionsStoreDetail> {
                   Image.network(
                     promotionsStoreDetailModel.bannerImage,
                     fit: BoxFit.cover,
+                    height: 228,
                   ),
                   Container(
                     decoration: BoxDecoration(
@@ -90,7 +90,7 @@ class _PromotionsStoreDetailState extends State<PromotionsStoreDetail> {
             ),
           ),
 
-          /// ================= STORE LIST =================
+          /// bloc for store list with items
           SliverList(
             delegate: SliverChildBuilderDelegate((context, index) {
               final store = promotionsStoreDetailModel.stores[index];
@@ -102,15 +102,15 @@ class _PromotionsStoreDetailState extends State<PromotionsStoreDetail> {
     );
   }
 
-  /// ================= STORE SECTION =================
+  /// bloc for store section with items
   Widget _buildStoreSection(PromotionStoreModel store) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.symmetric(vertical: 12),
+      margin: EdgeInsets.only(bottom: 12),
+      padding: EdgeInsets.symmetric(vertical: 12),
       color: AppColorsPath.backgroundColor,
       child: Column(
         children: [
-          /// ================= STORE HEADER =================
+          /// bloc for store details
           CardStoreWidget(
             image: store.storeLogo,
             name: store.storeName,
@@ -120,9 +120,9 @@ class _PromotionsStoreDetailState extends State<PromotionsStoreDetail> {
             deliveryTime: store.deliveryTime,
           ),
 
-          const SizedBox(height: 12),
+          SizedBox(height: 12),
 
-          /// ================= ITEM LIST =================
+          /// bloc for item list
           SizedBox(
             height: 170,
             child: ListView.builder(
@@ -142,12 +142,14 @@ class _PromotionsStoreDetailState extends State<PromotionsStoreDetail> {
               },
             ),
           ),
+          Divider(color: AppColorsPath.greyEDEDED, thickness: 1, height: 20),
         ],
       ),
     );
   }
 }
 
+/// bloc for product card
 class CardProductStoreWidget extends StatelessWidget {
   final String image;
   final String name;
@@ -173,7 +175,7 @@ class CardProductStoreWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          /// IMAGE
+          /// bloc image with discount text
           Stack(
             children: [
               ClipRRect(
@@ -191,7 +193,7 @@ class CardProductStoreWidget extends StatelessWidget {
                 child: Container(
                   padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
                   decoration: BoxDecoration(
-                    color: AppColorsPath.red,
+                    color: AppColorsPath.redE21B1B,
                     borderRadius: BorderRadius.only(
                       topRight: Radius.circular(5),
                       bottomRight: Radius.circular(5),
@@ -199,9 +201,9 @@ class CardProductStoreWidget extends StatelessWidget {
                   ),
                   child: AppLabel(
                     text: discountText,
-                    color: Colors.white,
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold,
+                    color: AppColorsPath.white,
+                    fontSize: AppFontSize.value10,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ),
@@ -210,30 +212,33 @@ class CardProductStoreWidget extends StatelessWidget {
 
           const SizedBox(height: 6),
 
-          /// NAME
+          /// bloc for product name
           AppLabel(
             text: name,
-            fontSize: 12,
+            fontSize: AppFontSize.value13,
             maxLines: 1,
+            fontWeight: FontWeight.w500,
+            color: AppColorsPath.black09051C,
             overflow: TextOverflow.ellipsis,
           ),
 
           const SizedBox(height: 2),
 
-          /// PRICE
+          /// bloc for product price and original price
           Row(
             children: [
               AppLabel(
                 text: "\$$price",
-                fontWeight: FontWeight.bold,
-                color: AppColorsPath.black,
-                fontSize: 12,
+                fontWeight: FontWeight.w500,
+                color: AppColorsPath.blue,
+                fontSize: AppFontSize.value13,
               ),
-              const SizedBox(width: 4),
+              SizedBox(width: 4),
               AppLabel(
                 text: "\$$originalPrice",
-                fontSize: 10,
-                color: AppColorsPath.red,
+                fontSize: AppFontSize.value10,
+                fontWeight: FontWeight.w400,
+                color: AppColorsPath.redE21B1B,
                 textDecoration: TextDecoration.lineThrough,
               ),
             ],
@@ -244,6 +249,7 @@ class CardProductStoreWidget extends StatelessWidget {
   }
 }
 
+/// bloc store details
 class CardStoreWidget extends StatelessWidget {
   final String image;
   final String name;
@@ -269,11 +275,11 @@ class CardStoreWidget extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            width: 52,
-            height: 52,
+            width: 70,
+            height: 70,
             decoration: BoxDecoration(
               color: AppColorsPath.greyE0E0E0,
-              borderRadius: BorderRadius.circular(26),
+              borderRadius: BorderRadius.circular(50),
               boxShadow: [
                 BoxShadow(
                   color: AppColorsPath.greyE0E0E0.withValues(alpha: 0.3),
@@ -282,69 +288,77 @@ class CardStoreWidget extends StatelessWidget {
                   offset: const Offset(0, 3),
                 ),
               ],
-              border: Border.all(color: AppColorsPath.greyE0E0E0, width: 1),
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(26),
-              child: Image.network(
-                image,
-                width: 52,
-                height: 52,
+              image: DecorationImage(
+                image: NetworkImage(image),
                 fit: BoxFit.cover,
               ),
+              border: Border.all(color: AppColorsPath.greyE0E0E0, width: 1),
             ),
           ),
           SizedBox(width: 12),
 
+          /// bloc for store details
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AppLabel(text: name, fontSize: 16, fontWeight: FontWeight.bold),
-                const SizedBox(height: 4),
+                AppLabel(
+                  text: name,
+                  fontSize: AppFontSize.value13,
+                  fontWeight: FontWeight.w500,
+                  color: AppColorsPath.black09051C,
+                ),
+                SizedBox(height: 4),
 
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 3,
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                   decoration: BoxDecoration(
-                    color: AppColorsPath.red,
-                    borderRadius: BorderRadius.circular(20),
+                    color: AppColorsPath.redE21B1B,
+                    borderRadius: BorderRadius.circular(40),
                   ),
                   child: AppLabel(
                     text: promotionText,
-                    fontSize: 11,
-                    color: Colors.white,
+                    fontSize: AppFontSize.value10,
+                    fontWeight: FontWeight.w500,
+                    color: AppColorsPath.white,
                   ),
                 ),
+                SizedBox(height: 4),
 
-                const SizedBox(height: 4),
-
+                /// bloc for rating, delivery fee, and delivery time
                 Row(
                   children: [
-                    const Icon(
+                    Icon(
                       Icons.star_border,
                       size: 14,
-                      color: Colors.orange,
+                      color: AppColorsPath.yellow,
                     ),
-                    const SizedBox(width: 4),
+                    SizedBox(width: 4),
                     AppLabel(
                       text: rating.toString(),
-                      fontSize: 12,
-                      color: Colors.grey,
+                      fontSize: AppFontSize.value12,
+                      color: AppColorsPath.colorGrey.withValues(alpha: 0.6),
+                      fontWeight: FontWeight.w500,
                     ),
-                    const SizedBox(width: 10),
+                    SizedBox(width: 10),
+                  ],
+                ),
+
+                /// bloc for delivery fee and delivery time
+                Row(
+                  children: [
                     AppLabel(
                       text: "\$$deliveryFee",
-                      fontSize: 12,
-                      color: Colors.grey,
+                      fontSize: AppFontSize.value12,
+                      color: AppColorsPath.colorGrey.withValues(alpha: 0.6),
+                      fontWeight: FontWeight.w500,
                     ),
-                    const SizedBox(width: 10),
+                    SizedBox(width: 10),
                     AppLabel(
                       text: deliveryTime,
-                      fontSize: 12,
-                      color: Colors.grey,
+                      fontSize: AppFontSize.value12,
+                      color: AppColorsPath.colorGrey.withValues(alpha: 0.6),
+                      fontWeight: FontWeight.w500,
                     ),
                   ],
                 ),

@@ -123,8 +123,8 @@ final PromotionsStoreDetailModel promotionData = PromotionsStoreDetailModel(
       storeId: "1",
       storeName: "Pizza Hut",
       storeLogo:
-          "https://cdn.vegkit.com/wp-content/uploads/sites/2/2022/09/18161257/poke-bowl-by-almond-lane.jpg",
-      promotionText: "Up to 50% Off",
+          "https://static.wixstatic.com/media/22e53e_6818890490334e429d78876ba5f757ce~mv2.jpg/v1/fill/w_480,h_480,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/22e53e_6818890490334e429d78876ba5f757ce~mv2.jpg",
+      promotionText: "Up to 50% Off on Selected Items",
       rating: 4.9,
       deliveryFee: 0.75,
       deliveryTime: "15 min",

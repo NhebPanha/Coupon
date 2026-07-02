@@ -86,7 +86,8 @@ class AppColorsPath {
   static Color get blackOptionChat => const Color(0xff3C3C43);
   static Color get bgSenderBubbleChat => const Color(0xffE1FEC6);
   static Color get bgSenderReactBubbleChat => const Color(0xffD5F1C9);
-  static Color get bgReceivedReactBubbleChat => const Color(0xffCDEDFF).withValues(alpha: 0.5);
+  static Color get bgReceivedReactBubbleChat =>
+      const Color(0xffCDEDFF).withValues(alpha: 0.5);
   static Color get bgReceivedReplyBubbleChat => const Color(0xffCDEDFF);
   static Color get senderChatColor => const Color(0xffE1FEC6);
   static Color get sizeImageChatColor => const Color(0xff6FB26A);
@@ -141,4 +142,5 @@ class AppColorsPath {
   static Color get black09051C => const Color(0xff09051C);
   static Color get black333333 => const Color(0xff333333);
   static Color get greyE0E0E0 => const Color(0xffE0E0E0);
+  static Color get yellowFFE99C => const Color(0xfFFE99C);
 }

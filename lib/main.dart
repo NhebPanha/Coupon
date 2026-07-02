@@ -1,3 +1,4 @@
+import 'package:coupon/category/category_test.dart';
 import 'package:coupon/coupon/coupon.dart';
 import 'package:coupon/coupon/coupon_v2.dart';
 import 'package:coupon/store/promotions_store_detail.dart';
@@ -14,8 +15,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
+
       // home: CouponScreen(),
       home: PromotionsStoreDetail(),
+      // home: CategoryTest(),
     );
   }
 }

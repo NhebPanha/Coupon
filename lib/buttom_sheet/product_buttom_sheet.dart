@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:coupon/store/promotions_store_detail.dart';
 import 'package:coupon/widget/app_colore_part.dart';
+import 'package:coupon/widget/app_font_size.dart';
 import 'package:coupon/widget/app_label.dart';
 import 'package:flutter/material.dart';
 
@@ -21,6 +22,7 @@ class _ProductMenuScreenState extends State<ProductMenuScreen> {
 
   // Track if the user is currently touching/dragging the screen
   bool _isUserInteracting = false;
+  int selectedIndex = 0;
 
   @override
   void initState() {
@@ -191,14 +193,13 @@ class _ProductMenuScreenState extends State<ProductMenuScreen> {
 
   Widget _buildCategoryRow() {
     final List<Map<String, dynamic>> categories = [
-      {'name': 'Burger', 'icon': '🍔', 'selected': true},
-      {'name': 'Coffee', 'icon': '☕', 'selected': false},
-      {'name': 'Pizza', 'icon': '🍕', 'selected': false},
-      {'name': 'Western', 'icon': '🥩', 'selected': false},
-      {'name': 'Sushi', 'icon': '🍣', 'selected': false},
+      {'name': 'Burger', 'icon': '🍔'},
+      {'name': 'Coffee', 'icon': '☕'},
+      {'name': 'Pizza', 'icon': '🍕'},
+      {'name': 'Western', 'icon': '🥩'},
+      {'name': 'Sushi', 'icon': '🍣'},
     ];
-    
-    
+
     return Container(
       decoration: BoxDecoration(
         color: AppColorsPath.white,
@@ -207,74 +208,122 @@ class _ProductMenuScreenState extends State<ProductMenuScreen> {
             color: Colors.black.withValues(alpha: 0.1),
             spreadRadius: 1,
             blurRadius: 5,
-            offset: Offset(0, 5), // changes position of shadow
+            offset: const Offset(0, 5),
           ),
         ],
       ),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
-        padding: EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: categories.map((cat) {
-            final isSelected = cat['selected'] as bool;
+          children: categories.asMap().entries.map((entry) {
+            final index = entry.key;
+            final cat = entry.value;
+            final isSelected = selectedIndex == index;
 
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Column(
-                children: [
-                  // The Main Item Card
-                  Container(
-                    // Adjust size to comfortably fit your content
-                    padding: EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      // Selected state gets the light yellow bg, unselected is completely transparent/white
-                      color: isSelected
-                          ? const Color(0xFFFFF3D4)
-                          : Colors.transparent,
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(24),
-                        topRight: Radius.circular(24),
-                      ),
-                    ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        // Image/Icon Container (The circular white plate look)
-                        Center(
-                          child: Text(
-                            cat['icon'], // Or swap this with your Image widget
-                            style: const TextStyle(fontSize: 32),
+            return GestureDetector(
+              onTap: () {
+                setState(() {
+                  selectedIndex = index;
+                });
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Column(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: isSelected
+                          ? BoxDecoration(
+                              color: AppColorsPath.yellowFFE99C.withValues(
+                                alpha: 0.5,
+                              ),
+                              // color: AppColorsPath.yellow.withValues(
+                              //   alpha: 0.6,
+                              // ),
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(20),
+                                topRight: Radius.circular(20),
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: AppColorsPath.black.withValues(
+                                    alpha: 0.3,
+                                  ),
+                                ),
+                                BoxShadow(
+                                  color: AppColorsPath.backgroundColor,
+                                  spreadRadius: -0.3,
+                                  blurRadius: 5,
+                                  offset: Offset(1, 3),
+                                ),
+                              ],
+                            )
+                          : BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(15),
+                                topRight: Radius.circular(15),
+                              ),
+                            ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            width: 55,
+                            height: 55,
+                            decoration: !isSelected
+                                ? null
+                                : BoxDecoration(
+                                    borderRadius: BorderRadius.circular(100),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: AppColorsPath.black.withValues(
+                                          alpha: 0.3,
+                                        ),
+                                      ),
+                                      BoxShadow(
+                                        color: AppColorsPath.backgroundColor,
+                                        spreadRadius: -0.3,
+                                        blurRadius: 5,
+                                        offset: Offset(1, 3),
+                                      ),
+                                    ],
+                                  ),
+                            child: Center(
+                              child: AppLabel(
+                                text: cat['icon'],
+                                fontSize: AppFontSize.value32,
+                              ),
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 16),
-                        // Text Label
-                        Text(
-                          cat['name'],
-                          style: TextStyle(
+                          SizedBox(height: 16),
+                          AppLabel(
+                            text: cat['name'],
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
-                            // Selected state gets golden text, unselected gets dark charcoal/black
                             color: isSelected
-                                ? const Color(0xFFD4A300)
-                                : Colors.black87,
+                                ? AppColorsPath.yellow
+                                : AppColorsPath.black,
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 12),
-                  // Bottom Selection Indicator Bar
-                  Container(
-                    width: 45,
-                    height: 3,
-                    decoration: BoxDecoration(
-                      color: isSelected
-                          ? AppColorsPath.yellow
-                          : AppColorsPath.transparent,
+                    const SizedBox(height: 12),
+                    AnimatedContainer(
+                      duration: const Duration(milliseconds: 250),
+                      width: 45,
+                      height: 3,
+                      decoration: BoxDecoration(
+                        color: isSelected
+                            ? AppColorsPath.yellow
+                            : Colors.transparent,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             );
           }).toList(),

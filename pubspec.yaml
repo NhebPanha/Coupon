@@ -37,9 +37,6 @@ dependencies:
   qr_flutter: ^4.1.0
   dotted_line: ^3.2.3
   flutter_svg: ^2.3.0
-  flutter_inset_box_shadow: ^1.0.8
-  flutter_neumorphic: ^3.2.0
-  inner_shadow_container: ^1.0.4
 
 dev_dependencies:
   flutter_test:
