@@ -89,16 +89,16 @@ class _ProductMenuScreenState extends State<ProductMenuScreen> {
           children: [
             /// bloc Close Button & Banner
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              padding: EdgeInsets.only(top: 30.0),
               child: Align(
                 alignment: Alignment.center,
                 child: Container(
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: AppColorsPath.transparent,
+                    color: AppColorsPath.black.withValues(alpha: 0.5),
                   ),
                   child: IconButton(
-                    icon: const Icon(Icons.close, color: Colors.white),
+                    icon: Icon(Icons.close, color: Colors.white),
                     onPressed: () {},
                   ),
                 ),
@@ -120,14 +120,14 @@ class _ProductMenuScreenState extends State<ProductMenuScreen> {
               ),
               padding: const EdgeInsets.symmetric(vertical: 12.0),
               width: MediaQuery.of(context).size.width,
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   AppLabel(
                     text: "Special Time Offer 🍎👍😍",
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
+                    fontSize: AppFontSize.value14,
+                    fontWeight: FontWeight.w700,
+                    color: AppColorsPath.black,
                   ),
                 ],
               ),
@@ -198,6 +198,11 @@ class _ProductMenuScreenState extends State<ProductMenuScreen> {
       {'name': 'Pizza', 'icon': '🍕'},
       {'name': 'Western', 'icon': '🥩'},
       {'name': 'Sushi', 'icon': '🍣'},
+      {'name': 'Burger', 'icon': '🍔'},
+      {'name': 'Coffee', 'icon': '☕'},
+      {'name': 'Pizza', 'icon': '🍕'},
+      {'name': 'Western', 'icon': '🥩'},
+      {'name': 'Sushi', 'icon': '🍣'},
     ];
 
     return Container(
@@ -232,20 +237,19 @@ class _ProductMenuScreenState extends State<ProductMenuScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Column(
                   children: [
-                    Container(
-                      padding: const EdgeInsets.all(12),
+                    AnimatedContainer(
+                      duration: Duration(milliseconds: 250),
+                      curve: Curves.easeOut,
+                      padding: EdgeInsets.all(12),
                       decoration: isSelected
                           ? BoxDecoration(
                               color: AppColorsPath.yellowFFE99C.withValues(
                                 alpha: 0.5,
                               ),
-                              // color: AppColorsPath.yellow.withValues(
-                              //   alpha: 0.6,
-                              // ),
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(20),
                                 topRight: Radius.circular(20),
-                              ),
+                              ), 
                               boxShadow: [
                                 BoxShadow(
                                   color: AppColorsPath.black.withValues(
@@ -270,7 +274,9 @@ class _ProductMenuScreenState extends State<ProductMenuScreen> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Container(
+                          AnimatedContainer(
+                            duration: Duration(milliseconds: 250),
+                            curve: Curves.easeIn,
                             width: 55,
                             height: 55,
                             decoration: !isSelected
@@ -298,28 +304,28 @@ class _ProductMenuScreenState extends State<ProductMenuScreen> {
                               ),
                             ),
                           ),
-                          SizedBox(height: 16),
+                          SizedBox(height: isSelected ? 12 : 5),
                           AppLabel(
                             text: cat['name'],
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                            fontSize: AppFontSize.value12,
+                            fontWeight: FontWeight.w500,
                             color: isSelected
-                                ? AppColorsPath.yellow
-                                : AppColorsPath.black,
+                                ? AppColorsPath.yellowE3A700
+                                : AppColorsPath.neutral900,
                           ),
                         ],
                       ),
                     ),
-                    const SizedBox(height: 12),
+                    SizedBox(height: 12),
                     AnimatedContainer(
-                      duration: const Duration(milliseconds: 250),
-                      width: 45,
+                      duration: Duration(milliseconds: 250),
+                      width: 50,
                       height: 3,
                       decoration: BoxDecoration(
                         color: isSelected
                             ? AppColorsPath.yellow
                             : Colors.transparent,
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(50),
                       ),
                     ),
                   ],

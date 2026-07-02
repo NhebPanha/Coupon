@@ -143,4 +143,5 @@ class AppColorsPath {
   static Color get black333333 => const Color(0xff333333);
   static Color get greyE0E0E0 => const Color(0xffE0E0E0);
   static Color get yellowFFE99C => const Color(0xfFFE99C);
+  static Color get yellowE3A700 => const Color(0xffE3A700);
 }
