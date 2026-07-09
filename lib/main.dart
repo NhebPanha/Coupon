@@ -1,4 +1,6 @@
 import 'package:coupon/category/category_test.dart';
+import 'package:coupon/coins/my_coins_screen.dart';
+import 'package:coupon/coins/mycoins_screen_v2.dart';
 import 'package:coupon/coupon/coupon.dart';
 import 'package:coupon/coupon/coupon_v2.dart';
 import 'package:coupon/store/promotions_store_detail.dart';
@@ -13,12 +15,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
 
       // home: CouponScreen(),
-      home: PromotionsStoreDetail(),
+      // home: PromotionsStoreDetail(),
       // home: CategoryTest(),
+      home: MyCoinsScreen(),
     );
   }
 }
