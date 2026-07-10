@@ -21,7 +21,8 @@ class MyApp extends StatelessWidget {
       // home: CouponScreen(),
       // home: PromotionsStoreDetail(),
       // home: CategoryTest(),
-      home: MyCoinsScreen(),
+      // home: MyCoinsScreen(),
+      home: MyCoinsScreenV2(),
     );
   }
 }

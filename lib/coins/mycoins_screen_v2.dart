@@ -1,342 +1,316 @@
+import 'package:coupon/widget/app_colore_part.dart';
+import 'package:coupon/widget/app_font_size.dart';
+import 'package:coupon/widget/app_label.dart';
 import 'package:flutter/material.dart';
 
-class MyCoinsScreens extends StatefulWidget {
-  const MyCoinsScreens({super.key});
+class MyCoinsScreenV2 extends StatefulWidget {
+  const MyCoinsScreenV2({super.key});
 
   @override
-  State<MyCoinsScreens> createState() => _MyCoinsScreensState();
+  State<MyCoinsScreenV2> createState() => _MyCoinsScreenV2State();
 }
 
-class _MyCoinsScreensState extends State<MyCoinsScreens> {
+class _MyCoinsScreenV2State extends State<MyCoinsScreenV2> {
   @override
   Widget build(BuildContext context) {
-    final rewards = ["+10", "+10", "+10", "+10", "+10", "+10", "+10"];
-
     return Scaffold(
-      backgroundColor: const Color(0xFFF6F6F6),
-      body: SafeArea(
-        child: Column(
-          children: [
-            /// HEADER
-            Container(
-              padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [Color(0xFFFFA000), Color(0xFFFFB84D)],
+      backgroundColor: const Color(0xffF5F5F5),
+      body: Stack(
+        children: [
+          /// Header
+          SizedBox(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                Image.network(
+                  height: 100,
+                  width: MediaQuery.of(context).size.width,
+                  "https://i.pinimg.com/736x/ae/99/b6/ae99b68d978a0b2249f43de441c2891b.jpg",
+                  fit: BoxFit.fill,
                 ),
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(28),
-                  bottomRight: Radius.circular(28),
+
+                Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Color(0xffFF9800).withOpacity(0.85),
+                        Color(0xffFFB74D).withOpacity(0.85),
+                      ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                  ),
                 ),
-              ),
-              child: Column(
-                children: [
-                  Row(
+
+                Padding(
+                  padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Icon(Icons.arrow_back_ios, color: Colors.white),
-                      const Expanded(
-                        child: Center(
-                          child: Text(
-                            "My Coins",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 22,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
+                      InkWell(
+                        onTap: () => Navigator.maybePop(context),
+                        child: Icon(
+                          Icons.arrow_back_ios,
+                          color: AppColorsPath.white,
+                          size: 20,
                         ),
                       ),
+
+                      Expanded(
+                        child: AppLabel(
+                          text: "My Coins",
+                          textAlign: TextAlign.center,
+                          fontSize: AppFontSize.value17,
+                          fontWeight: FontWeight.w600,
+                          color: AppColorsPath.white,
+                        ),
+                      ),
+
                       Container(
-                        width: 42,
-                        height: 42,
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
+                        width: 34,
+                        height: 34,
+                        decoration: BoxDecoration(
+                          color: AppColorsPath.white,
                           shape: BoxShape.circle,
                         ),
-                        child: const Icon(
+                        child: Icon(
                           Icons.history,
-                          color: Color(0xFFFFA000),
+                          size: 20,
+                          color: AppColorsPath.orangeFFA800,
                         ),
                       ),
                     ],
                   ),
-
-                  const SizedBox(height: 28),
-
-                  /// MEMBERSHIP CARD
+                ),
+              ],
+            ),
+          ),
+          Positioned(
+            left: 0,
+            right: 0,
+            top: 140,
+            child: Container(
+              height: 150,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color.fromARGB(158, 189, 113, 0),
+                    Color.fromARGB(118, 187, 116, 10),
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30),
+                  topRight: Radius.circular(30),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.monetization_on,
+                    color: AppColorsPath.white,
+                    size: 18,
+                  ),
+                  const SizedBox(width: 6),
+                  AppLabel(
+                    text: "Coin",
+                    fontSize: AppFontSize.value15,
+                    fontWeight: FontWeight.w600,
+                    color: AppColorsPath.white,
+                  ),
                   Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 14,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(.18),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Container(
-                              width: 28,
-                              height: 28,
-                              decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(.25),
-                                shape: BoxShape.circle,
-                              ),
-                              child: const Icon(
-                                Icons.workspace_premium,
-                                color: Colors.white,
-                                size: 18,
-                              ),
+                    margin: EdgeInsets.symmetric(horizontal: 20),
+                    width: 1,
+                    height: 36,
+                    color: AppColorsPath.white.withValues(alpha: 0.4),
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Row(
+                        children: [
+                          Container(
+                            width: 18,
+                            height: 18,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: AppColorsPath.white.withValues(alpha: 0.3),
+                              shape: BoxShape.circle,
                             ),
-                            const SizedBox(width: 8),
-                            const Text(
-                              "Gold",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w700,
-                              ),
+                            child: AppLabel(
+                              text: "A",
+                              fontSize: AppFontSize.value10,
+                              fontWeight: FontWeight.w700,
+                              color: AppColorsPath.white,
                             ),
-                          ],
-                        ),
-
-                        const SizedBox(width: 20),
-
-                        Container(
-                          width: 1,
-                          height: 42,
-                          color: Colors.white.withOpacity(.4),
-                        ),
-
-                        const SizedBox(width: 20),
-
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Container(
-                                  width: 24,
-                                  height: 24,
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    gradient: const LinearGradient(
-                                      colors: [
-                                        Color(0xFFFED36A),
-                                        Color(0xFFF8A81C),
-                                      ],
-                                    ),
-                                    border: Border.all(color: Colors.white),
-                                  ),
-                                  child: const Text(
-                                    "A",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(width: 8),
-                                const Text(
-                                  "1200  ~  \$12",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 4),
-                            Text(
-                              "200 coins expiring on 31/12/2023",
-                              style: TextStyle(
-                                color: Colors.white.withOpacity(.9),
-                                fontSize: 12,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                          ),
+                          const SizedBox(width: 6),
+                          AppLabel(
+                            text: "10  ≈  \$${12.toStringAsFixed(0)}",
+                            fontSize: AppFontSize.value15,
+                            fontWeight: FontWeight.w600,
+                            color: AppColorsPath.white,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 4),
+                      AppLabel(
+                        text: "${20} coins expiring on ${10}",
+                        fontSize: AppFontSize.value11,
+                        fontWeight: FontWeight.w400,
+                        color: AppColorsPath.white.withValues(alpha: 0.85),
+                      ),
+                    ],
                   ),
                 ],
               ),
             ),
+          ),
 
-            /// BODY
-            Expanded(
+          /// White Body
+          Positioned(
+            top: 250,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: Container(
+              height: 1000,
+              decoration: const BoxDecoration(
+                color: Color(0xffF6F6F6),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(35),
+                  topRight: Radius.circular(35),
+                ),
+              ),
               child: SingleChildScrollView(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  children: [
-                    /// CHECK IN CARD
-                    Container(
-                      padding: const EdgeInsets.all(18),
-                      decoration: BoxDecoration(
-                        gradient: const LinearGradient(
-                          colors: [Color(0xFFFFA000), Color(0xFFFFC15A)],
+                child: Container(
+                  margin: const EdgeInsets.only(top: 30, left: 16, right: 16),
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [Color(0xffFF9800), Color(0xffFFB74D)],
+                    ),
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "Daily check-in Progress",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 26,
+                          fontWeight: FontWeight.w700,
                         ),
-                        borderRadius: BorderRadius.circular(24),
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            "Daily check-in Progress",
+
+                      const SizedBox(height: 12),
+
+                      const Text(
+                        "You will get extra coins in the seventh time you check in each week.",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          height: 1.4,
+                        ),
+                      ),
+
+                      const SizedBox(height: 24),
+
+                      SizedBox(
+                        height: 90,
+                        child: ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: 7,
+                          separatorBuilder: (_, __) => const SizedBox(width: 8),
+                          itemBuilder: (context, index) {
+                            final isToday = index == 4;
+
+                            return Container(
+                              width: 70,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(14),
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    width: 36,
+                                    height: 36,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: isToday
+                                          ? Colors.orange
+                                          : Colors.orange.shade300,
+                                    ),
+                                    child: const Center(
+                                      child: Text(
+                                        "+10",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 11,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 6),
+                                  Text(
+                                    isToday ? "Today" : "Day ${index + 1}",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      color: isToday
+                                          ? Colors.orange
+                                          : Colors.black54,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+
+                      const SizedBox(height: 24),
+
+                      SizedBox(
+                        width: double.infinity,
+                        height: 58,
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                            elevation: 0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(40),
+                            ),
+                          ),
+                          child: const Text(
+                            "Check-in Now",
                             style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 22,
+                              color: Colors.orange,
+                              fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-
-                          const SizedBox(height: 8),
-
-                          const Text(
-                            "You will get extra coins in the seventh time you check in each week.",
-                            style: TextStyle(color: Colors.white, fontSize: 14),
-                          ),
-
-                          const SizedBox(height: 20),
-
-                          SizedBox(
-                            height: 70,
-                            child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: rewards.length,
-                              itemBuilder: (_, index) {
-                                final isToday = index == 4;
-
-                                return Container(
-                                  width: 55,
-                                  margin: const EdgeInsets.only(right: 8),
-                                  decoration: BoxDecoration(
-                                    color: isToday
-                                        ? Colors.white
-                                        : const Color(0xFFFFE5C1),
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        width: 28,
-                                        height: 28,
-                                        alignment: Alignment.center,
-                                        decoration: const BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          gradient: LinearGradient(
-                                            colors: [
-                                              Color(0xFFFED36A),
-                                              Color(0xFFF8A81C),
-                                            ],
-                                          ),
-                                        ),
-                                        child: const Text(
-                                          "+10",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 8,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                      const SizedBox(height: 4),
-                                      Text(
-                                        isToday ? "Today" : "Day ${index + 1}",
-                                        style: const TextStyle(
-                                          fontSize: 10,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-
-                          const SizedBox(height: 20),
-
-                          SizedBox(
-                            width: double.infinity,
-                            height: 52,
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.white,
-                                elevation: 0,
-                                shape: const StadiumBorder(),
-                              ),
-                              child: const Text(
-                                "Check-in Now",
-                                style: TextStyle(
-                                  color: Color(0xFFFFA000),
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
-
-                    const SizedBox(height: 28),
-
-                    /// BOTTOM MENU
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: const [
-                        _MenuItem(icon: Icons.card_giftcard, title: "Rewards"),
-                        _MenuItem(icon: Icons.sync, title: "Redeem"),
-                        _MenuItem(
-                          icon: Icons.volunteer_activism,
-                          title: "Earn Coins",
-                        ),
-                        _MenuItem(
-                          icon: Icons.workspace_premium,
-                          title: "Membership",
-                        ),
-                      ],
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
-    );
-  }
-}
-
-class _MenuItem extends StatelessWidget {
-  final IconData icon;
-  final String title;
-
-  const _MenuItem({required this.icon, required this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        CircleAvatar(
-          radius: 32,
-          backgroundColor: const Color(0xFFFFF1D8),
-          child: Icon(icon, color: const Color(0xFFFFA000), size: 30),
-        ),
-        const SizedBox(height: 10),
-        Text(title, style: const TextStyle(fontWeight: FontWeight.w600)),
-      ],
     );
   }
 }

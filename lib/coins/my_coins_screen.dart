@@ -162,6 +162,9 @@ class _MyCoinsScreenState extends State<MyCoinsScreen> {
                         ),
                       ],
                     ),
+                    
+                    
+                    
                     const SizedBox(height: 20),
 
                     /// bloc for daily check-in card
