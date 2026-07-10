@@ -18,11 +18,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
 
-      // home: CouponScreen(),
+      home: CouponScreen(),
       // home: PromotionsStoreDetail(),
       // home: CategoryTest(),
       // home: MyCoinsScreen(),
-      home: MyCoinsScreenV2(),
+      // home: MyCoinsScreenV2(),
     );
   }
 }
